@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import Cell from './Cell';
 import './Board.css';
 
@@ -66,17 +67,18 @@ class Board extends Component {
     for (let y = 0; y < this.props.nRows; y++) {
       const newCol = Array.from({ length: this.props.nCols });
       for (let x = 0; x < newCol.length; x++) {
-        //i want current boolean from state at given position
+        //get the current boolean from state at given position
         const currentCellBool = this.state.board[y][x];
         newCol[x] = (
           <Cell
             isLit={currentCellBool}
             flipCellsAroundMe={this.flipCellsAround}
             id={`${y}-${x}`}
+            key={uuidv4()}
           />
         );
       }
-      renderedBoard.push(<tr>{newCol}</tr>);
+      renderedBoard.push(<tr key={uuidv4()}>{newCol}</tr>);
     }
     return renderedBoard;
   }
