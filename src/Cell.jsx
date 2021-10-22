@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import './Cell.css';
 
 /** A single cell on the board.
@@ -29,7 +28,7 @@ class Cell extends Component {
   render() {
     let classes = 'Cell' + (this.props.isLit ? ' Cell-lit' : '');
 
-    return <td className={classes} onClick={this.handleClick} key={uuidv4()} />;
+    return <td className={classes} onClick={this.handleClick} />;
   }
 }
 
