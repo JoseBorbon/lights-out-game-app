@@ -29,11 +29,16 @@ import './Board.css';
  **/
 
 class Board extends Component {
+  static defaultProps = {
+    nRows: 5,
+    nCols: 5,
+    chanceLightStartsOn: 0.3,
+  };
   constructor(props) {
     super(props);
 
     // TODO: set initial state
-    this.state = { hasWon: false };
+    this.state = { hasWon: false, board: this.createBoard() };
   }
 
   /** create a board nrows high/ncols wide, each cell randomly lit or unlit */
@@ -41,20 +46,34 @@ class Board extends Component {
   createBoard() {
     let board = [];
     // TODO: create array-of-arrays of true/false values
+    for (let i = 0; i < this.props.nRows; i++) {
+      //generate a row based off nCols
+      const newCol = Array.from({ length: this.props.nCols });
+      for (let j = 0; j < newCol.length; j++) {
+        //make it percentage chance for elements to be true vs false
+        if (Math.random() < this.props.chanceLightStartsOn) {
+          newCol[j] = true;
+        } else {
+          newCol[j] = false;
+        }
+      }
+      board.push(newCol);
+    }
     return board;
   }
 
   /** handle changing a cell: update board & determine if winner */
 
   flipCellsAround(coord) {
-    let { ncols, nrows } = this.props;
+    let { nCols, nRows } = this.props;
     let board = this.state.board;
-    let [y, x] = coord.split('-').map(Number);
+    let [y, x] = coord.split('-').map(Number); //-> coord will be a string, then space delimited by -,
+    //then new array will be numbered version of row and column
 
     function flipCell(y, x) {
       // if this coord is actually on board, flip it
 
-      if (x >= 0 && x < ncols && y >= 0 && y < nrows) {
+      if (x >= 0 && x < nCols && y >= 0 && y < nRows) {
         board[y][x] = !board[y][x];
       }
     }
@@ -72,7 +91,7 @@ class Board extends Component {
   render() {
     // if the game is won, just show a winning msg & render nothing else
     // TODO
-    return this.state.hasWon ? 'NICE' : 'Board Still Up';
+    return this.state.hasWon ? 'NICE' : 'Sup';
     // make table board
     // TODO
   }
