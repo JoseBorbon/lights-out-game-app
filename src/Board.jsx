@@ -68,21 +68,45 @@ class Board extends Component {
     let { nCols, nRows } = this.props;
     let board = this.state.board;
     let [y, x] = coord.split('-').map(Number); //-> coord will be a string, then space delimited by -,
-    //then new array will be numbered version of row and column
+    //then new array will be numbered version of row and column  '2-3'
 
-    function flipCell(y, x) {
-      // if this coord is actually on board, flip it
+    (function flipCells(y, x) {
+      // if these coord are actually on board, flip them
+      /* LAYOUT    ( y - 1, x) 
+        (y, x - 1) (  y , x  )  (y, x + 1 )
+                   (y + 1, x ) */
 
+      //top coord
+      if (x >= 0 && x < nCols && y - 1 >= 0 && y - 1 < nRows) {
+        board[y - 1][x] = !board[y - 1][x];
+      }
+      //right coord
+      if (x + 1 >= 0 && x + 1 < nCols && y >= 0 && y < nRows) {
+        board[y][x + 1] = !board[y][x + 1];
+      }
+      //center coord
       if (x >= 0 && x < nCols && y >= 0 && y < nRows) {
         board[y][x] = !board[y][x];
       }
-    }
-
-    // TODO: flip this cell and the cells around it
+      //left coord
+      if (x - 1 >= 0 && x - 1 < nCols && y >= 0 && y < nRows) {
+        board[y][x - 1] = !board[y][x - 1];
+      }
+      //bottom coord
+      if (x >= 0 && x < nCols && y + 1 >= 0 && y + 1 < nRows) {
+        board[y + 1][x] = !board[y + 1][x];
+      }
+    })(y, x);
 
     // win when every cell is turned off
-    // TODO: determine is the game has been won
-
+    for (let y = 0; y < nRows; y++) {
+      for (let x = 0; x < nCols; x++) {
+        //if any of the columns have a truthy value in it, break out since game hasn't been won
+        if (board[y][x]) {
+          return;
+        }
+      }
+    }
     this.setState({ board, hasWon: true });
   }
 
@@ -98,3 +122,11 @@ class Board extends Component {
 }
 
 export default Board;
+
+// [
+//     ['0,0', '1,0','2,0','3,0','4,0'],
+//     ['0,1', '1,1','2,1','3,1','4,1'],
+//     ['0,2', '1,2','2,2','3,2','4,2'],
+//     ['0,3', '1,3','2,3','3,3','4,3'],
+//     ['0,4', '1,4','2,4','3,4','4,4'],
+// }
