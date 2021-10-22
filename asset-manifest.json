@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/lights-out-game-app/static/css/main.795e6cf5.chunk.css",
+    "main.js": "/lights-out-game-app/static/js/main.e4ca406b.chunk.js",
+    "main.js.map": "/lights-out-game-app/static/js/main.e4ca406b.chunk.js.map",
+    "runtime-main.js": "/lights-out-game-app/static/js/runtime-main.ffc8c703.js",
+    "runtime-main.js.map": "/lights-out-game-app/static/js/runtime-main.ffc8c703.js.map",
+    "static/js/2.f6e58ce1.chunk.js": "/lights-out-game-app/static/js/2.f6e58ce1.chunk.js",
+    "static/js/2.f6e58ce1.chunk.js.map": "/lights-out-game-app/static/js/2.f6e58ce1.chunk.js.map",
+    "index.html": "/lights-out-game-app/index.html",
+    "static/css/main.795e6cf5.chunk.css.map": "/lights-out-game-app/static/css/main.795e6cf5.chunk.css.map",
+    "static/js/2.f6e58ce1.chunk.js.LICENSE.txt": "/lights-out-game-app/static/js/2.f6e58ce1.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ffc8c703.js",
+    "static/js/2.f6e58ce1.chunk.js",
+    "static/css/main.795e6cf5.chunk.css",
+    "static/js/main.e4ca406b.chunk.js"
+  ]
+}
