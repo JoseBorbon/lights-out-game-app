@@ -42,22 +42,35 @@ class Board extends Component {
   }
 
   /** create a board nrows high/ncols wide, each cell randomly lit or unlit */
-
   createBoard() {
     let board = [];
     // TODO: create array-of-arrays of true/false values
-    for (let i = 0; i < this.props.nRows; i++) {
+    for (let y = 0; y < this.props.nRows; y++) {
       //generate a row based off nCols
       const newCol = Array.from({ length: this.props.nCols });
-      for (let j = 0; j < newCol.length; j++) {
+      for (let x = 0; x < newCol.length; x++) {
         //make it percentage chance for elements to be true vs false
         if (Math.random() < this.props.chanceLightStartsOn) {
-          newCol[j] = true;
+          //   newCol[j] = true;
+          newCol[x] = (
+            <Cell
+              isLit={true}
+              flipCellsAroundMe={this.flipCellsAround}
+              id={`${y}-${x}`}
+            />
+          );
         } else {
-          newCol[j] = false;
+          //   newCol[j] = false;
+          newCol[x] = (
+            <Cell
+              isLit={false}
+              flipCellsAroundMe={this.flipCellsAround}
+              id={`${y}-${x}`}
+            />
+          );
         }
       }
-      board.push(newCol);
+      board.push(<tr>{newCol}</tr>);
     }
     return board;
   }
@@ -111,11 +124,16 @@ class Board extends Component {
   }
 
   /** Render game board or winning message. */
-
   render() {
     // if the game is won, just show a winning msg & render nothing else
     // TODO
-    return this.state.hasWon ? 'NICE' : 'Sup';
+    return this.state.hasWon ? (
+      <h1>NICE, YOU WON!</h1>
+    ) : (
+      <table>
+        <tbody>{this.state.board}</tbody>
+      </table>
+    );
     // make table board
     // TODO
   }
@@ -124,9 +142,14 @@ class Board extends Component {
 export default Board;
 
 // [
-//     ['0,0', '1,0','2,0','3,0','4,0'],
-//     ['0,1', '1,1','2,1','3,1','4,1'],
-//     ['0,2', '1,2','2,2','3,2','4,2'],
-//     ['0,3', '1,3','2,3','3,3','4,3'],
-//     ['0,4', '1,4','2,4','3,4','4,4'],
-// }
+//     ['0-0', '1-0','2-0','3-0','4-0'],
+//     ['0-1', '1-1','2-1','3-1','4-1'],
+//     ['0-2', '1-2','2-2','3-2','4-2'],
+//     ['0-3', '1-3','2-3','3-3','4-3'],
+//     ['0-4', '1-4','2-4','3-4','4-4'],
+// ]
+
+/*
+In the render, the Table Cells will be holding the coordinate so that when we click on the square,
+the coordinate will be given accordingly to the flipCells Function
+*/
