@@ -32,13 +32,12 @@ class Board extends Component {
   static defaultProps = {
     nRows: 5,
     nCols: 5,
-    chanceLightStartsOn: 0.3,
+    chanceLightStartsOn: 0.15,
   };
   constructor(props) {
     super(props);
-
-    // TODO: set initial state
     this.state = { hasWon: false, board: this.createBoard() };
+    this.flipCellsAround = this.flipCellsAround.bind(this);
   }
 
   /** create a board nrows high/ncols wide, each cell randomly lit or unlit */
@@ -117,6 +116,7 @@ class Board extends Component {
         board[y + 1][x] = !board[y + 1][x];
       }
     })(y, x);
+    this.setState({ board: board });
 
     // win when every cell is turned off
     for (let y = 0; y < nRows; y++) {
@@ -127,7 +127,7 @@ class Board extends Component {
         }
       }
     }
-    this.setState({ board, hasWon: true });
+    this.setState({ hasWon: true });
   }
 
   /** Render game board or winning message. */
@@ -148,16 +148,3 @@ class Board extends Component {
 }
 
 export default Board;
-
-// [
-//     ['0-0', '1-0','2-0','3-0','4-0'],
-//     ['0-1', '1-1','2-1','3-1','4-1'],
-//     ['0-2', '1-2','2-2','3-2','4-2'],
-//     ['0-3', '1-3','2-3','3-3','4-3'],
-//     ['0-4', '1-4','2-4','3-4','4-4'],
-// ]
-
-/*
-In the render, the Table Cells will be holding the coordinate so that when we click on the square,
-the coordinate will be given accordingly to the flipCells Function
-*/
