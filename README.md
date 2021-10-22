@@ -1,4 +1,4 @@
-#Shout out to [Thomas Trinca](https://codepen.io/Trinca/pen/NAvpWa) for neon lights css
+# Shout out to [Thomas Trinca](https://codepen.io/Trinca/pen/NAvpWa) for neon lights css
 
 # Getting Started with Create React App
 
