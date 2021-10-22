@@ -21,9 +21,9 @@ class Cell extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick(evt) {
+  handleClick() {
     // call up to the board to flip cells around this cell
-    this.props.flipCellsAroundMe();
+    this.props.flipCellsAroundMe(this.props.id);
   }
 
   render() {
