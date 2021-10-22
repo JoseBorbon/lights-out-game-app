@@ -43,7 +43,7 @@ class Board extends Component {
 
   /** create a board nrows high/ncols wide, each cell randomly lit or unlit */
   createBoard() {
-    let board = [];
+    const board = [];
     // TODO: create array-of-arrays of true/false values
     for (let y = 0; y < this.props.nRows; y++) {
       //generate a row based off nCols
@@ -124,11 +124,20 @@ class Board extends Component {
     // if the game is won, just show a winning msg & render nothing else
     // TODO
     return this.state.hasWon ? (
-      <h1>NICE, YOU WON!</h1>
+      <h1 className="neon-orange">NICE, YOU WON!</h1>
     ) : (
-      <table>
-        <tbody>{renderedBoard}</tbody>
-      </table>
+      <>
+        <h1>
+          <span className="neon-orange">Lights</span>
+          <br />
+          <span className="neon-blue">Out</span>
+        </h1>
+        <div id="Lights-out-container">
+          <table>
+            <tbody>{renderedBoard}</tbody>
+          </table>
+        </div>
+      </>
     );
     // make table board
     // TODO
