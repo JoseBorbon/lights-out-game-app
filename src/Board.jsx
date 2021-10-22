@@ -91,33 +91,19 @@ class Board extends Component {
     let [y, x] = coord.split('-').map(Number); //-> coord will be a string, then space delimited by -,
     //then new array will be numbered version of row and column  '2-3'
 
-    (function flipCells(y, x) {
-      // if these coord are actually on board, flip them
-      /* LAYOUT    ( y - 1, x) 
-        (y, x - 1) (  y , x  )  (y, x + 1 )
-                   (y + 1, x ) */
-
-      //top coord
-      if (x >= 0 && x < nCols && y - 1 >= 0 && y - 1 < nRows) {
-        board[y - 1][x] = !board[y - 1][x];
-      }
-      //right coord
-      if (x + 1 >= 0 && x + 1 < nCols && y >= 0 && y < nRows) {
-        board[y][x + 1] = !board[y][x + 1];
-      }
-      //center coord
+    function flipCells(y, x) {
+      // if this coord is actually on the board, flip it
       if (x >= 0 && x < nCols && y >= 0 && y < nRows) {
         board[y][x] = !board[y][x];
       }
-      //left coord
-      if (x - 1 >= 0 && x - 1 < nCols && y >= 0 && y < nRows) {
-        board[y][x - 1] = !board[y][x - 1];
-      }
-      //bottom coord
-      if (x >= 0 && x < nCols && y + 1 >= 0 && y + 1 < nRows) {
-        board[y + 1][x] = !board[y + 1][x];
-      }
-    })(y, x);
+    }
+
+    flipCells(y - 1, x); //top
+    flipCells(y, x - 1); //left
+    flipCells(y, x); //center
+    flipCells(y, x + 1); //right
+    flipCells(y + 1, x); //bottom
+
     this.setState({ board: board });
 
     // win when every cell is turned off
