@@ -51,28 +51,35 @@ class Board extends Component {
       for (let x = 0; x < newCol.length; x++) {
         //make it percentage chance for elements to be true vs false
         if (Math.random() < this.props.chanceLightStartsOn) {
-          //   newCol[j] = true;
-          newCol[x] = (
-            <Cell
-              isLit={true}
-              flipCellsAroundMe={this.flipCellsAround}
-              id={`${y}-${x}`}
-            />
-          );
+          newCol[x] = true;
         } else {
-          //   newCol[j] = false;
-          newCol[x] = (
-            <Cell
-              isLit={false}
-              flipCellsAroundMe={this.flipCellsAround}
-              id={`${y}-${x}`}
-            />
-          );
+          newCol[x] = false;
         }
       }
-      board.push(<tr>{newCol}</tr>);
+      board.push(newCol);
     }
     return board;
+  }
+
+  renderBoard() {
+    //use state board in order to render Cells with info we need
+    const renderedBoard = [];
+    for (let y = 0; y < this.props.nRows; y++) {
+      const newCol = Array.from({ length: this.props.nCols });
+      for (let x = 0; x < newCol.length; x++) {
+        //i want current boolean from state at given position
+        const currentCellBool = this.state.board[y][x];
+        newCol[x] = (
+          <Cell
+            isLit={currentCellBool}
+            flipCellsAroundMe={this.flipCellsAround}
+            id={`${y}-${x}`}
+          />
+        );
+      }
+      renderedBoard.push(<tr>{newCol}</tr>);
+    }
+    return renderedBoard;
   }
 
   /** handle changing a cell: update board & determine if winner */
@@ -125,13 +132,14 @@ class Board extends Component {
 
   /** Render game board or winning message. */
   render() {
+    const renderedBoard = this.renderBoard();
     // if the game is won, just show a winning msg & render nothing else
     // TODO
     return this.state.hasWon ? (
       <h1>NICE, YOU WON!</h1>
     ) : (
       <table>
-        <tbody>{this.state.board}</tbody>
+        <tbody>{renderedBoard}</tbody>
       </table>
     );
     // make table board
